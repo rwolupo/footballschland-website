@@ -1,0 +1,103 @@
+---
+// partner.astro — Partner & Affiliate-Links
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const partners = [
+  { name: 'ahead', category: 'Nutrition & Supplements', url: 'https://www.awin1.com/cread.php?s=3803966&v=109748&q=506523&r=2598031', description: 'Die Lieblingssnacks aus deiner Kindheit endlich wieder genießen – und das ohne schlechtes Gewissen!' },
+  { name: 'Body & Fit', category: 'Nutrition & Supplements', url: 'https://www.awin1.com/cread.php?s=4026834&v=117013&q=528423&r=2598031', description: 'Ob für das Workout im Fitnessstudio, den täglichen Motivationspush und Rezeptvorschläge, bis hin zu Sportnahrung.' },
+  { name: 'Bodylab', category: 'Nutrition & Supplements', url: 'https://www.awin1.com/cread.php?s=4561578&v=15016&q=585873&r=2598031', description: 'No Tricks - Just Real Gains: im Onlineshop mit Gutscheincode: MONSTERMAX – Bis zu 42% Rabatt' },
+  { name: 'Decathlon', category: 'Fitness & Health-Tech', url: 'https://www.awin1.com/cread.php?s=3590308&v=14353&q=355424&r=2598031', description: 'Decathlon bietet als weltweit führende Sportmarke hochwertiges Equipment für Einsteiger und Profis.' },
+  { name: 'Fanatics', category: 'Sportswear', url: 'https://fanatics.93n6tx.net/aOEEoj', description: 'Mit echter Leidenschaft für den Sport – auf und neben dem Spielfeld – bietet Fanatics ein Erlebnis voller NFL-Merchandise.' },
+  { name: 'Lifesum', category: 'Fitness & Health-Tech', url: 'https://www.awin1.com/cread.php?s=3866133&v=113414&q=512100&r=2598031', description: 'Lifesum vereinfacht gesundes Essen durch wissenschaftlich fundierte Einblicke, personalisierte Mahlzeitpläne und einfaches Tracking. Mit Footballschland 50 % günstiger!' },
+  { name: 'Mojokaii', category: 'Nutrition & Supplements', url: 'https://mojokaii.com?sca_ref=9877685.HzuZsLBp9U&utm_source=source&utm_medium=affiliate&utm_campaign=affiliate_name', description: 'Krasser Focus und Konzentration für Gamer und Sportler! Mit dem Code "footballschland10" gibt es 10% Rabatt auf eure Bestellung!' },
+  { name: 'NordVPN', category: 'Tech', url: 'https://go.nordvpn.net/SHASM', description: 'Dein Tor zu amerikanischer Sportberichterstattung! College Football, NFL & Co. streamen, egal wo du bist. Spezialpreis!' },
+  { name: 'pCloud', category: 'Tech', url: 'https://partner.pcloud.com/r/134991', description: 'Dank sicherer Rechenzentren in der EU und strenger Schweizer Datenschutzbestimmungen mit TLS/SSL-Kanälen. Unser Favorit für Cloud-Storage mit Sonderkonditionen!' },
+  { name: 'BioTechUSA', category: 'Nutrition & Supplements', url: 'https://shop.biotechusa.com', description: 'Mit dem Code GLASKUGEL15 erhaltet ihr 15% Rabatt auf euren Einkauf im BioTechUSA-Shop.' },
+  { name: 'Body Attack', category: 'Nutrition & Supplements', url: 'https://www.awin1.com/cread.php?s=4548660&v=14328&q=366583&r=2598031', description: 'Fitness- und Freizeitsportler, Ausdauersportler, Profi- und Leistungssportler werden von den Produkten von Body Attack optimal versorgt.' },
+  { name: 'Comet Browser by Perplexity', category: 'Tech', url: 'https://pplx.ai/footballschland', description: 'Holt euch euren Zugang zur neuen Welt der AI-Browser. On top bekommt ihr über unseren Link einen Monat Perplexity Pro kostenlos.' },
+  { name: 'Factor_', category: 'Food', url: 'https://www.factormeals.de/FAMBFOOTBALLSCHLAND', description: 'Mit Factor genießt du immer neu: Jede Woche 18 neue gesunde Gerichte - entwickelt von Ernährungsprofis. Spare jetzt 30% auf deine erste Box & kostenlosen Versand mit dem Code FAMBFOOTBALLSCHLAND.' },
+  { name: 'Forelle Teamsports', category: 'Sportswear', url: 'https://www.forelle.com/de_DE/', description: 'Der Komplettausstatter für American Football, Baseball und Co. Mit dem Code "FOOTBALLSCHLAND10" gibt es 10 % Rabatt im gesamten Shop.' },
+  { name: 'Maxi Nutrition', category: 'Nutrition & Supplements', url: 'https://www.awin1.com/cread.php?s=4499392&v=15651&q=388854&r=2598031', description: 'MaxiNutrition bietet aktiven und gesundheitsbewussten Menschen innovatives Fitness-Food ohne künstliche Zusatzstoffe.' },
+  { name: 'Nextgen', category: 'Nutrition & Supplements', url: 'https://nextgen-supplements.com?sca_ref=9821603.7a08d3dlvn', description: 'Supplements in höchster Qualität – faire Preise, made in Germany. Für die nächste Generation von Athleten.' },
+  { name: 'Orgainic', category: 'Nutrition & Supplements', url: 'https://www.awin1.com/cread.php?s=4208015&v=118211&q=549180&r=2598031', description: 'Bio-Sportnahrung, natürlich und rein. Mit der "weniger ist mehr"-Philosophie bietet Orgainic konstant hochwertige Produkte.' },
+  { name: 'Ultrahuman', category: 'Fitness & Health-Tech', url: 'https://ultrahumanhealthcare.pxf.io/xL1BAy', description: 'Der bequemste Schlaf-Tracker der Welt: Ultrahuman Ring AIR® – Mit SCHLAND25 den höchsten Rabatt abgreifen!' },
+];
+
+// Get unique categories
+const categories = Array.from(new Set(partners.map(p => p.category)));
+
+// Group partners by category
+const partnersByCategory = categories.reduce((acc, cat) => {
+  acc[cat] = partners.filter(p => p.category === cat);
+  return acc;
+}, {} as Record<string, typeof partners>);
+---
+
+<BaseLayout
+  title="Partner & Affiliate-Links | Footballschland"
+  description="Unsere Partner und Affiliate-Links für Nutrition, Tech, Fitness und mehr."
+>
+
+<!-- Hero Section -->
+<section class="bg-gradient-to-b from-[#1A1A1A] to-[#0D0D0D] pt-32 pb-12 px-4">
+  <div class="max-w-7xl mx-auto text-center">
+    <h1 class="font-display text-6xl md:text-7xl font-bold text-white mb-6">
+      Partner & Affiliate
+    </h1>
+    
+    <p class="text-lg md:text-xl text-white/70 max-w-3xl mx-auto font-body">
+      Unsere ausgewählten Partner für deine Fitness, Nutrition und Technik.
+    </p>
+  </div>
+</section>
+
+<!-- Disclosure -->
+<section class="py-12 px-4 bg-[#0D0D0D] border-b border-white/10">
+  <div class="max-w-4xl mx-auto">
+    <div class="p-6 bg-white/5 border border-white/10 rounded">
+      <p class="text-white/70 text-base leading-relaxed font-body">
+        🔗 <strong>Transparenzhinweis / Affiliate-Links:</strong> Diese Seite enthält sogenannte Affiliate-Links. Wenn du über einen solchen Link ein Produkt kaufst oder einen Service buchst, erhalten wir eine kleine Provision – ohne Mehrkosten für dich. Für dich ändert sich dadurch nichts am Preis – im Gegenteil: Bei vielen unserer Partner bekommst du sogar exklusive Rabatte oder Sonderkonditionen über unsere Links. Wir verlinken ausschließlich Produkte, Marken oder Services, von denen wir selbst überzeugt sind oder die wir selbst nutzen. Die Einnahmen aus diesen Partnerschaften helfen uns, den Podcast und unsere Inhalte langfristig zu finanzieren. Alle Affiliate-Links sind als solche kenntlich gemacht.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Partners Grid -->
+<section class="py-20 px-4 bg-[#0D0D0D]">
+  <div class="max-w-7xl mx-auto">
+    {categories.map((category) => (
+      <div class="mb-16">
+        <h2 class="section-label text-left mb-8">{category}</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {partnersByCategory[category].map((partner) => (
+            <a
+              href={partner.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group flex flex-col p-6 bg-white/5 border border-white/10 hover:border-crimson/50 rounded transition-all"
+            >
+              <div class="flex-1">
+                <p class="text-crimson text-xs font-semibold uppercase tracking-widest mb-2">
+                  {partner.category}
+                </p>
+                <h3 class="text-xl font-display font-bold text-white mb-3 group-hover:text-crimson transition-colors">
+                  {partner.name}
+                </h3>
+                <p class="text-white/60 text-sm leading-relaxed font-body">
+                  {partner.description}
+                </p>
+              </div>
+              
+              <div class="mt-4 flex items-center gap-2 text-crimson-light font-semibold text-sm group-hover:gap-3 transition-all">
+                Link besuchen <span>→</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+</BaseLayout>
