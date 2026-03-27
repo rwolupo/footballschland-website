@@ -47,6 +47,6 @@ Für jeden jungen Spieler in Deutschland, der davon träumt, einmal in den USA z
 
 ---
 
-Mehr zu den deutschen NFL-Kandidaten aus diesem Jahrgang gibt es in unserem [Draft 2026 Artikel](/blog/deutsche-spieler-im-nfl-draft-2026).
+Mehr zu den deutschen NFL-Kandidaten aus diesem Jahrgang gibt es in unserem [Draft 2026 Artikel](/blockblog/deutsche-spieler-im-nfl-draft-2026).
 
 Weitere Infos, Interviews und Updates findet ihr im [Footballschland Podcast](https://open.spotify.com/show/1DlSNLB5HsxSp12nilwjbc) und auf [Instagram](https://www.instagram.com/footballschland).

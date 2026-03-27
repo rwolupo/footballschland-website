@@ -14,16 +14,16 @@
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
 [[redirects]]
-  from = "/blockblog"
-  to = "/blog"
+  from = "/blog"
+  to = "/blockblog"
   status = 301
 
 [[redirects]]
-  from = "/blockblog/*"
-  to = "/blog/:splat"
+  from = "/blog/*"
+  to = "/blockblog/:splat"
   status = 301
 
 [[redirects]]
-  from = "/blog/categories/*"
-  to = "/blog"
+  from = "/blockblog/categories/*"
+  to = "/blockblog"
   status = 301
