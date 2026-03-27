@@ -1,31 +1,19 @@
 ---
-// blog/index.astro — Blog overview
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-// TODO: In Phase 2c, load these from Astro content collections
-// const { data: posts } = await getCollection('blog');
-// TODO: Sort by date and map properly
+const posts = (await getCollection('blog')).sort(
+  (a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
+);
 
-const posts = [
-  {
-    title: 'Deutsche Spieler im NFL Draft 2026: Sieben Deutsche wollen den Sprung in die NFL schaffen',
-    slug: 'deutsche-spieler-im-nfl-draft-2026',
-    excerpt: 'Der NFL Draft 2026 rückt näher – und mit ihm die Frage, die uns jedes Jahr aufs Neue elektrisiert: Wer wird der nächste Deutsche in der NFL? In diesem Jahr sind es gleich sieben Namen, die auf dem Radar der Scouts stehen.',
-    date: '2026-03-21',
-    readTime: '14 Min. Lesezeit',
-    category: 'Draft',
-    views: 76,
-  },
-  {
-    title: 'Deutsche Talente im American Football - D1 Colleges Saison 2025',
-    slug: 'deutsche-talente-d1-2025',
-    excerpt: 'American Football boomt in Deutschland – und immer mehr Talente wagen den Sprung in die USA. 2025 stehen so viele Deutsche wie nie zuvor auf D1-Rosters.',
-    date: '2025-09-05',
-    readTime: '6 Min. Lesezeit',
-    category: 'College',
-    views: 535,
-  },
-];
+const formatDate = (date: Date) =>
+  new Date(date).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const categoryColors: Record<string, string> = {
+  'Draft': 'bg-crimson/20 text-crimson border-crimson/40',
+  'NFL': 'bg-blue-900/50 text-blue-400 border-blue-700',
+  'College': 'bg-emerald-900/50 text-emerald-400 border-emerald-700',
+};
 ---
 
 <BaseLayout
@@ -33,56 +21,88 @@ const posts = [
   description="Der Blockblog ist unser Zuhause für Artikel über deutsche Talente im American Football. Von ausführlichen Draft-Analysen bis hin zu College-Saisonberichten."
 >
 
-<!-- Hero Section -->
-<section class="bg-gradient-to-b from-[#1A1A1A] to-[#0D0D0D] pt-32 pb-12 px-4">
-  <div class="max-w-7xl mx-auto text-center">
-    <h1 class="font-display text-6xl md:text-7xl font-bold text-white mb-6">
-      Blockblog
+<!-- Hero -->
+<section class="bg-gradient-to-b from-[#1A1A1A] to-[#111111] pt-28 pb-12 px-4">
+  <div class="max-w-4xl mx-auto text-center">
+    <p class="section-label mb-4">Blockblog</p>
+    <h1 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+      Alle Artikel
     </h1>
-    
-    <p class="text-lg md:text-xl text-white/70 max-w-3xl mx-auto font-body">
-      Der Blockblog ist unser Zuhause für Artikel über deutsche Talente im American Football. Von ausführlichen Draft-Analysen bis hin zu College-Saisonberichten – hier findest du unsere Texte.
+    <p class="text-lg md:text-xl text-white/70 max-w-3xl mx-auto font-body leading-relaxed">
+      Der Blockblog ist unser Zuhause für Artikel über deutsche Talente im American Football. Von ausführlichen Draft-Analysen bis hin zu College-Saisonberichten.
     </p>
   </div>
 </section>
 
-<!-- Blog Posts Grid -->
-<section class="py-20 px-4 bg-[#0D0D0D]">
+<!-- Category Filter -->
+<section class="py-6 px-4 bg-[#111111] border-b border-white/10">
+  <div class="max-w-4xl mx-auto flex flex-wrap gap-2 justify-center">
+    <a href="/blog" class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded border bg-crimson/20 text-crimson border-crimson/40 hover:bg-crimson/30 transition-colors">
+      Alle Beiträge
+    </a>
+    <a href="/blog/categories/draft" class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded border bg-white/5 text-white/60 border-white/20 hover:border-crimson/40 hover:text-white transition-colors">
+      Draft
+    </a>
+    <a href="/blog/categories/nfl" class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded border bg-white/5 text-white/60 border-white/20 hover:border-blue-500/40 hover:text-white transition-colors">
+      NFL
+    </a>
+    <a href="/blog/categories/college" class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded border bg-white/5 text-white/60 border-white/20 hover:border-emerald-500/40 hover:text-white transition-colors">
+      College
+    </a>
+  </div>
+</section>
+
+<!-- Posts -->
+<section class="py-16 px-4 bg-[#0D0D0D]">
   <div class="max-w-4xl mx-auto">
-    <div class="space-y-8">
-      {posts.map((post) => (
-        <article class="group p-6 md:p-8 bg-white/5 border border-white/10 hover:border-crimson/50 rounded transition-all">
-          <div class="flex items-start justify-between gap-4 mb-4">
-            <p class="text-crimson text-xs font-semibold uppercase tracking-widest">
-              {post.category}
-            </p>
-            <span class="text-white/40 text-xs whitespace-nowrap">
-              {post.views} Views
-            </span>
-          </div>
-          
-          <h2 class="text-2xl md:text-3xl font-display font-bold text-white mb-4 group-hover:text-crimson transition-colors">
-            {post.title}
-          </h2>
-          
-          <p class="text-white/60 text-base leading-relaxed mb-6 font-body">
-            {post.excerpt}
-          </p>
-          
-          <div class="flex items-center justify-between text-sm text-white/40">
-            <div class="space-x-4">
-              <span>{new Date(post.date).toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-              <span>•</span>
-              <span>{post.readTime}</span>
-            </div>
-          </div>
-          
-          <a href={`/blog/${post.slug}`} class="mt-6 inline-flex items-center gap-2 text-crimson hover:text-crimson-light font-semibold transition-colors">
-            Artikel lesen →
-          </a>
-        </article>
-      ))}
-    </div>
+    {posts.length === 0 ? (
+      <div class="text-center py-20">
+        <p class="text-white/40 font-body text-lg">Keine Beiträge gefunden.</p>
+      </div>
+    ) : (
+      <div class="flex flex-col gap-8">
+        {posts.map((post) => {
+          const badgeClass = categoryColors[post.data.category] || 'bg-white/10 text-white/60 border-white/20';
+          return (
+            <article class="group grid grid-cols-1 md:grid-cols-[2fr_3fr] bg-[#1A1A1A] border border-white/10 hover:border-crimson/50 rounded-xl overflow-hidden transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-crimson/10">
+              <a href={`/blog/${post.slug}`} class="block relative aspect-video md:aspect-auto bg-[#111111] overflow-hidden min-h-[200px]">
+                <div class="w-full h-full bg-gradient-to-br from-crimson/20 to-[#0D0D0D] flex items-center justify-center">
+                  <span class="font-display text-white/20 text-6xl font-bold">FS</span>
+                </div>
+              </a>
+              <div class="flex flex-col p-6">
+                <div class="flex items-center gap-3 mb-3">
+                  <span class={`px-2 py-0.5 text-xs font-bold uppercase tracking-widest rounded border ${badgeClass}`}>
+                    {post.data.category}
+                  </span>
+                  <span class="text-white/40 text-xs font-body">{formatDate(post.data.pubDate)}</span>
+                  {post.data.readTime && (
+                    <span class="text-white/40 text-xs font-body">· {post.data.readTime}</span>
+                  )}
+                </div>
+                <a href={`/blog/${post.slug}`} class="flex-1">
+                  <h2 class="font-display text-xl md:text-2xl font-bold text-white mb-3 leading-tight group-hover:text-crimson-light transition-colors">
+                    {post.data.title}
+                  </h2>
+                  <p class="text-white/60 text-sm leading-relaxed font-body">
+                    {post.data.description}
+                  </p>
+                </a>
+                <div class="mt-4 flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <div class="w-6 h-6 rounded-full bg-crimson flex items-center justify-center text-white font-bold text-xs">DD</div>
+                    <span class="text-white/40 text-xs font-body">{post.data.author}</span>
+                  </div>
+                  <a href={`/blog/${post.slug}`} class="text-crimson text-sm font-semibold flex items-center gap-1 hover:gap-2 transition-all">
+                    Lesen <span>→</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    )}
   </div>
 </section>
 
