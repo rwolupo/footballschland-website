@@ -18,13 +18,25 @@ const podcastPlatforms = [
 >
 
 <!-- Hero Section -->
-<section class="bg-gradient-to-b from-[#1A1A1A] to-[#0D0D0D] pt-32 pb-20 px-4">
-  <div class="max-w-7xl mx-auto text-center">
+<section class="relative bg-gradient-to-b from-[#1A1A1A] to-[#0D0D0D] pt-32 pb-20 px-4 overflow-hidden">
+  <!-- Subtle gold glow top-right -->
+  <div class="absolute top-0 right-0 w-96 h-96 bg-[#FFD700]/5 rounded-full blur-3xl pointer-events-none"></div>
+  <!-- Subtle crimson glow bottom-left -->
+  <div class="absolute bottom-0 left-0 w-64 h-64 bg-crimson/10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto text-center relative">
+    <!-- DE flag stripe accent -->
+    <div class="flex justify-center gap-1 mb-8">
+      <div class="w-6 h-1 rounded-full bg-white/30"></div>
+      <div class="w-6 h-1 rounded-full bg-crimson"></div>
+      <div class="w-6 h-1 rounded-full bg-[#FFD700]"></div>
+    </div>
+
     <h1 class="font-display text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
       American Football<br />
       <span class="text-crimson">MADE IN GERMANY</span>
     </h1>
-    
+
     <p class="text-xl md:text-2xl text-white/70 max-w-3xl mx-auto mb-8 font-body">
       Der Podcast, der die Geschichten von deutschen Talenten in High School, College und NFL erzählt.
     </p>

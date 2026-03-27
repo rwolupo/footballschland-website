@@ -9,6 +9,12 @@ export default {
           light: '#A8244A',
           dark: '#6B1228',
         },
+        gold: {
+          DEFAULT: '#FFD700',
+          light: '#FFE44D',
+          dark: '#CC9900',
+          muted: '#FFD70033',
+        },
         brand: {
           black: '#0D0D0D',
           dark: '#111111',
